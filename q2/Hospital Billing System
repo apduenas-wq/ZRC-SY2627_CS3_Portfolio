@@ -1,0 +1,75 @@
+class Patient:
+    def __init__(self, name: str, bill_amount: float):
+        self.__name = name
+        self.__bill_amount = bill_amount
+
+    def get_name(self) -> str:
+        return self.__name
+
+    def set_name(self, name: str):
+        self.__name = name
+
+    def get_bill_amount(self) -> float:
+        return self.__bill_amount
+
+    def set_bill_amount(self, bill_amount: float):
+        self.__bill_amount = bill_amount
+
+    def calculate_bill(self) -> float:
+        return self.__bill_amount
+    
+class regularPatient(Patient):
+    def __init__(self, name: str, bill_amount: float):
+        super().__init__(name, bill_amount)
+
+    def calculate_bill(self) -> float:
+        return self.get_bill_amount()
+
+
+class SeniorPatient(Patient):
+    def __init__(self, name: str, bill_amount: float):
+        super().__init__(name, bill_amount)
+
+    def calculate_bill(self) -> float:
+        return self.get_bill_amount() * 0.80
+
+
+class PhilHealthPatient(Patient):
+    def __init__(self, name: str, bill_amount: float):
+        super().__init__(name, bill_amount)
+
+    def calculate_bill(self) -> float:
+        return self.get_bill_amount() * 0.85
+
+if __name__ == "__main__":
+    patients = [
+        Patient("John Doe", 3480.010),
+        SeniorPatient("Maria Santos", 16090.40),
+        PhilHealthPatient("Juan Dela Cruz", 10000.890),
+        PhilHealthPatient("Ana Reyes", 28000.78),
+        Patient("Alice Smith", 34067.560),
+        SeniorPatient("Bob Johnson", 16451.07),
+        regularPatient("Charlie Brown", 18620.12),
+        regularPatient("Diana Prince", 28910.90)
+    ]
+
+    for patient in patients:
+        original_bill = patient.get_bill_amount()
+        final_bill = patient.calculate_bill()
+        discount = original_bill - final_bill
+
+        if isinstance(patient, SeniorPatient):
+            patient_type = "Senior Patient"
+        elif isinstance(patient, PhilHealthPatient):
+            patient_type = "PhilHealth Patient"
+        else:
+            patient_type = "Regular Patient"
+
+        print("====================================")
+        print(f"Patient Type: {patient_type}")
+        print(f"Patient Name: {patient.get_name()}")
+        print(f"Original Bill: ₱{original_bill:.2f}")
+        print(f"Discount: ₱{discount:.2f}")
+        print(f"Final Bill: ₱{final_bill:.2f}")
+        print("====================================\n")
+       
